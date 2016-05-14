@@ -17,7 +17,6 @@ App.Views.ProductsView = Backbone.View.extend({
       dataType: 'jsonp',
       success: function(data) {
         for(var i = 0; i < 5; i++) {
-          console.log(data);
           new App.Views.ProductView(data);
         }
       }
