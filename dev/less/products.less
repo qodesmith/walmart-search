@@ -1,0 +1,69 @@
+.products-container {
+  .search-products {
+    .flex;
+    padding: 30px 0 10px;
+    font-style: italic;
+    color: gray;
+  }
+
+  header {
+    .flex;
+    background: lightgray;
+
+    > div {
+      padding-top: 13px;
+      padding-bottom: 13px;
+    }
+  }
+}
+
+// Product
+.col1 {
+    width: 35%;
+
+  &.header {
+    .clickable;
+    display: flex;
+    padding: 0 20px;
+  }
+
+  .toggle.up {
+  }
+
+  .toggle {
+    margin-left: auto;
+    border-color: black transparent transparent;
+    border-width: 8px 4px;
+    border-style: solid;
+    transform: translateY(6px);
+
+    &.up {
+      transform: rotate(180deg) translateY(4px);
+    }
+  }
+}
+
+// Brand Name
+.col2 {
+ width: 16%;
+}
+
+// Category
+.col3 {
+  width: 24%;
+}
+
+// Price
+.col4 {
+  width: 6%;
+}
+
+// MSRP
+.col5 {
+  width: 6%;
+}
+
+// Reviews
+.col6 {
+  width: 13%;
+}

@@ -1,0 +1,43 @@
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.clickable {
+  user-select: none;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding: 40px 70px 20px;
+
+  input {
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 13px;
+
+    &::placeholder {
+      font-style: italic;
+    }
+  }
+}

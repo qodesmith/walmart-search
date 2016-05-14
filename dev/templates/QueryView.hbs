@@ -1,0 +1,23 @@
+<form action="" id="searchForm">
+  <input type="text" name="query" placeholder="Query (required)" id="query">
+
+  <div class="advanced-search">
+    <input type="text" name="brand-name" placeholder="Brand Name" id="brand-name">
+    <input type="text" name="results" placeholder="Results" id="results">
+    <input type="text" name="start-at" placeholder="Start at" id="start-at">
+    <div id="sorted-by">Sorted By</div>
+    <div class="drop-down">
+      <select name="sorted-by-dropdown">
+        <option value="relevance">Relevance</option>
+        <option value="price">Price</option>
+        <option value="title">Title</option>
+        <option value="bestseller">Best Seller</option>
+        <option value="customerRating">Customer Rating</option>
+        <option value="new">New</option>
+      </select>
+    </div>
+  </div>
+  <div class="search-title hidden"></div>
+
+  <div class="add-products">Add Products</div>
+</form>
