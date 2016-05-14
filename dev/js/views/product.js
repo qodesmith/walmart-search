@@ -6,6 +6,6 @@ App.Views.ProductView = Backbone.View.extend({
   },
   render: function() {
     this.$el.html(this.html);
-    $('.products-container').append(this.$el);
+    $('.individual-products').append(this.$el);
   }
 });

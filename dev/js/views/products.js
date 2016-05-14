@@ -16,9 +16,11 @@ App.Views.ProductsView = Backbone.View.extend({
       type: 'GET',
       dataType: 'jsonp',
       success: function(data) {
-        for(var i = 0; i < 5; i++) {
+        for(var i = 0; i < 15; i++) {
           new App.Views.ProductView(data);
         }
+
+        console.log(data);
       }
     });
   }
