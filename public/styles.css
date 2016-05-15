@@ -68,6 +68,14 @@ body {
   font-size: 14px;
   padding: 12px 0;
   border-bottom: 4px solid lightgray;
+  position: relative;
+  top: -20px;
+  opacity: 0;
+  transition: top .7s, opacity .7s;
+}
+.product.show {
+  top: 0;
+  opacity: 1;
 }
 .product .col1 {
   display: -webkit-flex;
@@ -77,6 +85,17 @@ body {
       -ms-flex-align: center;
           align-items: center;
   padding: 0 20px;
+}
+.product .col2 {
+  padding-right: 10px;
+}
+.product .col2 .brand-name {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid lightgray;
 }
 .product .col6 {
   display: -webkit-flex;
@@ -173,6 +192,9 @@ body {
 .products-container .individual-products {
   overflow-y: scroll;
 }
+.products-container .individual-products .product:last-of-type {
+  border-bottom-width: 10px;
+}
 .col1 {
   width: 35%;
 }
@@ -185,7 +207,11 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 20px;
+  padding: 13px 20px;
+  transition: background .3s;
+}
+.col1.header:hover {
+  background: #c6c6c6;
 }
 .col1 .toggle {
   margin-left: auto;
@@ -221,6 +247,9 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
   padding-bottom: 30px;
   border-bottom: 1px solid lightgray;
 }
@@ -259,6 +288,12 @@ body {
 }
 #query {
   width: 178px;
+}
+#query.error {
+  transition: border 2s;
+}
+#query.red {
+  border-color: red;
 }
 #brand-name {
   width: 178px;
