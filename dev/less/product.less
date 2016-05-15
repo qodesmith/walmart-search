@@ -4,10 +4,32 @@
   font-size: 14px;
   padding: 12px 0;
   border-bottom: 4px solid lightgray;
+  position: relative;
+  top: -20px;
+  opacity: 0;
+  transition: top .7s, opacity .7s;
+
+  &.show {
+    top: 0;
+    opacity: 1;
+  }
 
   .col1 {
     .flex;
     padding: 0 20px;
+  }
+
+  .col2 {
+    padding-right: 10px;
+
+    .brand-name {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid lightgray;
+    }
   }
 
   .col6 {
@@ -27,6 +49,7 @@
   padding: 5px 3px 5px 6px;
   border-radius: 3px;
 }
+
 
 .category {
   padding-right: 15px;

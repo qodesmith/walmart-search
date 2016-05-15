@@ -1,5 +1,6 @@
 .query-container {
   .flex;
+  flex-shrink: 0;
   padding-bottom: 30px;
   border-bottom: 1px solid lightgray;
 }
@@ -33,6 +34,14 @@
 
 #query {
   width: 178px;
+
+  &.error {
+    transition: border 2s;
+  }
+
+  &.red {
+    border-color: red;
+  }
 }
 
 #brand-name {

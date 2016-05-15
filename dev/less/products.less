@@ -39,6 +39,10 @@
 
   .individual-products {
     overflow-y: scroll;
+
+    .product:last-of-type {
+      border-bottom-width: 10px;
+    }
   }
 }
 
@@ -49,7 +53,12 @@
   &.header {
     .clickable;
     display: flex;
-    padding: 0 20px;
+    padding: 13px 20px;
+    transition: background .3s;
+
+    &:hover {
+      background: darken(lightgray, 5%);
+    }
   }
 
   .toggle {
