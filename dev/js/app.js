@@ -124,7 +124,6 @@ App.productAmount = function() {
 
 // Restores the list back to normal.
 App.clearSearch = function() {
-  console.log('App.clearSearch')
   App.searchFiltering = false;
   var input = $('.search-products input');
 
