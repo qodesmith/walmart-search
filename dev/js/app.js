@@ -31,9 +31,27 @@ App.renderCollection = function() {
   App.productAmount();
 }
 
+App.checkDuplicates = function(data) {
+  var col = App.collection.models;
+  var found = col.some(function(model) {
+    return data.some(function(obj) {
+      return obj.itemId === model.get('itemId');
+    });
+  });
+
+  found ? App.showModal(data) : App.processData(data, true);
+}
+
+App.showModal = function(data) {
+  console.log('user modal');
+  $('.modal-container').addClass('show');
+}
+
 // AJAX request data from the query form.
 // This function called from the query view.
-App.processData = function(data) {
+App.processData = function(data, skip) {
+  if(!skip) return App.checkDuplicates(data);
+
   var time = new Date().getTime();
   var frag = document.createDocumentFragment();
   var len = data.length;
@@ -80,6 +98,7 @@ App.collection = new App.Collections.ProductsCollection();
 App.container = new App.Views.ContainerView();
 App.query = new App.Views.QueryView();
 App.products = new App.Views.ProductsView();
+App.modal = new App.Views.ModalView();
 
 // Retrieve our models from localStorage & render the collection.
 App.collection.fetch();

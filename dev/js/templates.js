@@ -1,6 +1,9 @@
 App.templates["ContainerView"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "";
 },"useData":true});
+App.templates["ModalView"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"modal\">\n  <div class=\"content\">\n    Looks like you've requested some data that's already in your collection. Would you like to overwrite the old data, skip the duplicates, or cancel altogether?\n  </div>\n  <div class=\"buttons\">\n    <div class=\"btn\">Overwrite</div>\n    <div class=\"btn\">Skip</div>\n    <div class=\"btn\">Cancel</div>\n  </div>\n</div>";
+},"useData":true});
 App.templates["ProductView"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;
 
