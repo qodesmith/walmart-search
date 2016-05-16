@@ -39,6 +39,24 @@
 
   .individual-products {
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+
+    .product {
+      flex-shrink: 0;
+    }
+
+    &.reverse {
+      flex-direction: column-reverse;
+
+      .product:last-of-type {
+        border-bottom-width: initial;
+      }
+
+      .product:first-of-type {
+        border-bottom-width: 10px;
+      }
+    }
 
     .product:last-of-type {
       border-bottom-width: 10px;
@@ -52,6 +70,7 @@
 
   &.header {
     .clickable;
+    position: relative;
     display: flex;
     padding: 13px 20px;
     transition: background .3s;

@@ -14,6 +14,10 @@
     opacity: 1;
   }
 
+  &.hidden {
+    display: none;
+  }
+
   .col1 {
     .flex;
     padding: 0 20px;
@@ -37,6 +41,11 @@
   }
 }
 
+.none {
+  color: lightgray;
+  font-style: italic;
+}
+
 .thumb {
   max-width: 60px;
   max-height: 60px;
@@ -48,6 +57,7 @@
   border: 1px solid lightgray;
   padding: 5px 3px 5px 6px;
   border-radius: 3px;
+  margin-left: auto;
 }
 
 
@@ -61,4 +71,5 @@
   font-size: 1.2em;
   color: red;
   margin: auto 10px auto auto;
+  padding: 0 5px;
 }

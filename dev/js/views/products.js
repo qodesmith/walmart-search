@@ -7,41 +7,38 @@ App.Views.ProductsView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.html);
     $('.container').append(this.$el);
-
-    var url = 'http://api.walmartlabs.com/v1/items/12417832?apiKey=w48yd89ju28reu976jxc3ewz&format=json';
-
-    $.ajax({
-      url: url,
-      type: 'GET',
-      dataType: 'jsonp',
-      success: function(data) {
-        App.data = data;
-        var frag = document.createDocumentFragment();
-        for(var i = 0; i < 15; i++) {
-          var product = new App.Views.ProductView(data);
-          frag.appendChild(product.el);
-        }
-
-        var len = frag.children.length;
-        var individuals = $('.individual-products');
-
-        individuals.append(frag);
-
-        var children = individuals.children();
-        var i = 0;
-        var interval = setInterval(function() {
-          if(len === i) clearInterval(interval);
-          $(children[i]).addClass('show');
-          i++;
-        }, 100);
-      }
-    });
   },
   events: {
     'click .col1.header': 'sortProducts',
-
+    'keyup .search-products input': 'searchProducts',
+    'click .clear-products': 'clearProducts'
   },
   sortProducts: function(e) {
+    var scrollTop = $('.individual-products')[0].scrollTop;
+
     $('header .toggle').toggleClass('up');
+    $('.individual-products').toggleClass('reverse');
+    $('.individual-products')[0].scrollTop = scrollTop;
+  },
+  searchProducts: function(e) {
+    var val = $(e.target).val().toLowerCase();
+
+    App.collection.models.map(function(model) {
+      if(!val) return model.set({hidden: false});
+
+      var name = model.get('name').toLowerCase();
+      name.indexOf(val) === -1 ? model.set({hidden: true}) : model.set({hidden: false});
+    });
+
+    App.productAmount();
+  },
+  clearProducts: function() {
+    var models = App.collection.slice();
+
+    models.map(function(model) {
+      model.destroy();
+    });
+
+    App.productAmount();
   }
 });

@@ -1,14 +1,13 @@
 <div class="col1">
   <img src="{{thumbnailImage}}" alt="" class="thumb">
-  <div class="description">Here's a description of the product right here, it is.</div>
-  <div class="view-more">
+  <div class="description">{{name}}</div>
+  <a href="{{productUrl}}" target="_blank" class="view-more">
     <img src="./images/open.png" alt="">
-  </div>
+  </a>
 </div>
 
 <div class="col2">
-  <input type="text" class="brand-name" placeholder="{{brandName}}">
-  {{!-- <div class="brand-name">{{brandName}}</div> --}}
+  <input type="text" class="brand-name" placeholder="{{#if newBrandName}}{{newBrandName}}{{else}}{{brandName}}{{/if}}">
 </div>
 
 <div class="col3">
@@ -16,15 +15,33 @@
 </div>
 
 <div class="col4">
-  <div class="price">4.99</div>
+  <div class="price">${{salePrice}}</div>
 </div>
 
 <div class="col5">
-  <div class="msrp">6.99</div>
+  <div class="msrp">
+    {{#if msrp}}
+      <span class="msrp">${{msrp}}</span>
+    {{else}}
+      <span class="none">(none)</span>
+    {{/if}}
+  </div>
 </div>
 
 <div class="col6">
-  <img src="{{customerRatingImage}}" alt="" class="stars">
-  <div class="count">(36)</div>
+  {{#if customerRatingImage}}
+    <img src="{{customerRatingImage}}" alt="" class="stars">
+    <div class="count">
+      {{#if numReviews}}
+        ({{numReviews}})
+      {{else}}
+        {{#if customerRatingImage}}
+          (1)
+        {{/if}}
+      {{/if}}
+    </div>
+  {{else}}
+    <div class="none">(no reviews)</div>
+  {{/if}}
   <div class="close">&times;</div>
 </div>

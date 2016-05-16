@@ -58,6 +58,7 @@ gulp.task('scripts', function() {
   return gulp.src([
     'dev/js/vendors.min.js', // Needed 1st.
     'node_modules/backbone.localstorage/backbone.localStorage-min.js',
+    'dev/js/models/**/*.js', // Models need to be loaded first.
     'dev/js/**/!(app|templates|dependencies)*.js',
     'dev/js/templates.js',
     'dev/js/app.js', // Needed last.

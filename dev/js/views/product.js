@@ -1,22 +1,48 @@
 App.Views.ProductView = Backbone.View.extend({
   className: 'product',
-  initialize: function(obj) {
-    this.html = App.templates.ProductView(obj);
+  initialize: function() {
+    this.listenTo(this.model, 'change:hidden', this.hidden);
+    this.listenTo(this.model, 'destroy', function() {
+      App.killView(this);
+    });
+    this.render();
+  },
+  render: function() {
+    this.html = App.templates.ProductView(this.model.toJSON());
     this.$el.html(this.html);
   },
   events: {
-    'click .view-more': 'viewMore',
     'blur .brand-name': 'brandName',
-    'click .close': 'close'
-  },
-  viewMore: function(e) {
-    e.preventDefault();
-    console.log('new tab - individual product page');
+    'click .close': 'close',
   },
   brandName: function(e) {
-    console.log('persist the brand-name input data');
+    var val = $(e.target).val();
+    var placeholder = $(e.target).attr('placeholder');
+
+    this.model.save({newBrandName: val || placeholder});
+    this.render();
   },
   close: function() {
-    App.kill(this);
+    var _this = this;
+
+    this.$el.animate({
+      padding: 0,
+      height: 0,
+      borderBottomWidth: 0,
+      opacity: 0
+    }, function() {
+      _this.model.destroy();
+      App.killView(_this);
+      App.productAmount();
+    });
+  },
+  hidden: function() {
+    console.log('model change for hidden');
+    var hidden = this.model.get('hidden');
+    if(hidden) {
+      this.$el.addClass('hidden');
+    } else {
+      this.$el.removeClass('hidden');
+    }
   }
 });

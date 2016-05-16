@@ -57,6 +57,21 @@ body {
 .container input::placeholder {
   font-style: italic;
 }
+.btn {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  background: #1377d5;
+  color: white;
+  padding: 12px;
+  border-radius: 5px;
+  font-style: normal;
+}
+.right {
+  text-align: right;
+}
 .product {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -76,6 +91,9 @@ body {
 .product.show {
   top: 0;
   opacity: 1;
+}
+.product.hidden {
+  display: none;
 }
 .product .col1 {
   display: -webkit-flex;
@@ -105,6 +123,10 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
+.none {
+  color: lightgray;
+  font-style: italic;
+}
 .thumb {
   max-width: 60px;
   max-height: 60px;
@@ -119,6 +141,7 @@ body {
   border: 1px solid lightgray;
   padding: 5px 3px 5px 6px;
   border-radius: 3px;
+  margin-left: auto;
 }
 .category {
   padding-right: 15px;
@@ -133,6 +156,7 @@ body {
   font-size: 1.2em;
   color: red;
   margin: auto 10px auto auto;
+  padding: 0 5px;
 }
 .products-container {
   display: -webkit-flex;
@@ -191,6 +215,28 @@ body {
 }
 .products-container .individual-products {
   overflow-y: scroll;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.products-container .individual-products .product {
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+}
+.products-container .individual-products.reverse {
+  -webkit-flex-direction: column-reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+.products-container .individual-products.reverse .product:last-of-type {
+  border-bottom-width: initial;
+}
+.products-container .individual-products.reverse .product:first-of-type {
+  border-bottom-width: 10px;
 }
 .products-container .individual-products .product:last-of-type {
   border-bottom-width: 10px;
@@ -204,6 +250,7 @@ body {
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
+  position: relative;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -349,14 +396,8 @@ body {
 .search-title.hidden::after {
   content: 'Advanced Search';
 }
-.add-products {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  cursor: pointer;
-  background: #1377d5;
-  color: white;
-  padding: 12px;
-  border-radius: 5px;
+.add-products.searching {
+  background: lightgray url(images/spin.gif) center center no-repeat;
+  background-size: 32px;
+  color: transparent;
 }
