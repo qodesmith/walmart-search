@@ -39,47 +39,50 @@ App.checkDuplicates = function(data) {
     });
   });
 
-  found ? App.showModal(data) : App.processData(data, 'notFound');
+  found ? App.showModal(data) : App.processData(data);
+}
+
+// Run from the users choice in the modal.
+// Will destroy duplicate models or modify the data array.
+App.processDuplicates = function(data, choice) {
+  var models = App.collection.models;
+
+  // Destroy the duplicate models in localStorage.
+  if(choice === 'overwrite') {
+    var clone = models.slice();
+    clone.map(function(model) {
+      data.map(function(obj) {
+        if(model.get('itemId') === obj.itemId) model.destroy();
+      });
+    });
+
+    App.processData(data);
+
+  // Remove the duplicate models in data.
+  } else if(choice === 'skip') {
+    var newData = [];
+    data.map(function(obj) {
+      var match = models.some(function(model){
+        return model.get('itemId') === obj.itemId;
+      });
+
+      if(!match) newData.push(obj);
+    });
+
+    App.processData(newData);
+  }
 }
 
 App.showModal = function(data) {
+  // Store the data from the server on the app,
+  // enter the modal, then head to
   App.modalData = data;
   $('.modal-container').addClass('show');
 }
 
 // AJAX request data from the query form.
 // This function called from the query view.
-App.processData = function(data, skipOrOverwrite) {
-  if(!skipOrOverwrite) {
-    return App.checkDuplicates(data);
-  } else if(skipOrOverwrite !== 'notFound') {
-    console.log(data.length);
-    var clear = [];
-    var dups = [];
-
-    App.collection.models.map(function(model) {
-      data.map(function(obj) {
-        if(obj.itemId === model.get('itemId')) {
-          dups.push(model);
-        } else {
-          clear.push(obj);
-        }
-      });
-    });
-
-    if(skipOrOverwrite === 'overwrite') {
-      dups.map(function(model) {
-        model.destroy();
-      });
-    } else {
-      data = clear.slice();
-    }
-
-    App.modalData = '';
-  }
-
-  console.log(data.length);
-
+App.processData = function(data) {
   var time = new Date().getTime();
   var frag = document.createDocumentFragment();
   var len = data.length;

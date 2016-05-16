@@ -81,11 +81,13 @@ App.Views.QueryView = Backbone.View.extend({
         }
 
         _this.searching = false;
+
         if(res.totalResults > 0) {
-          App.processData(res.items);
+          App.checkDuplicates(res.items); // Begin processing the data.
         } else {
           $('.no-results').addClass('show');
         }
+
         $('.add-products').removeClass('searching');
         $('#searchForm input').val('');
       },
