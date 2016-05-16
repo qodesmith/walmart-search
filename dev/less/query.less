@@ -1,7 +1,8 @@
 .query-container {
   .flex;
+  flex-direction: column;
   flex-shrink: 0;
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
   border-bottom: 1px solid lightgray;
 }
 
@@ -18,6 +19,15 @@
     // background: white url(./images/form/arrows.png) no-repeat center right 10px;
     font-size: 16px;
     width: 160px;
+  }
+}
+
+.no-results {
+  padding: 10px 0;
+  color: transparent;
+
+  &.show {
+    color: red;
   }
 }
 

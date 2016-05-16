@@ -37,7 +37,6 @@ App.Views.ProductView = Backbone.View.extend({
     });
   },
   hidden: function() {
-    console.log('model change for hidden');
     var hidden = this.model.get('hidden');
     if(hidden) {
       this.$el.addClass('hidden');

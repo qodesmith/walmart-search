@@ -294,10 +294,12 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-flex-shrink: 0;
       -ms-flex-negative: 0;
           flex-shrink: 0;
-  padding-bottom: 30px;
   border-bottom: 1px solid lightgray;
 }
 #searchForm {
@@ -318,6 +320,13 @@ body {
   background: white;
   font-size: 16px;
   width: 160px;
+}
+.no-results {
+  padding: 10px 0;
+  color: transparent;
+}
+.no-results.show {
+  color: red;
 }
 .advanced-search {
   display: -webkit-flex;

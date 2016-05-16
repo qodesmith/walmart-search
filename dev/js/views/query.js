@@ -12,7 +12,11 @@ App.Views.QueryView = Backbone.View.extend({
     'click .search-title': 'searchToggle',
     'click .add-products': 'queryForm',
     'transitionend #query': 'clearQueryClass',
+    'focus input': 'focus',
     'keypress': 'enterKey'
+  },
+  focus: function() {
+    $('.no-results').removeClass('show');
   },
   searchToggle: function(e) {
     $(e.target).toggleClass('hidden shown');
@@ -30,6 +34,13 @@ App.Views.QueryView = Backbone.View.extend({
       }, 10);
     }
 
+    function minMax(min, max, value) {
+      if(!value) return false;
+      if(value >= min && value <= max) return value;
+      if(value < min) return false;
+      if(value > max) return max;
+    }
+
     if(this.searching) return; // AJAX request in progress.
     if(this.queryTransitioning) return; // Transitioning the red border off in progress.
     this.queryTransitioning = true;
@@ -42,17 +53,19 @@ App.Views.QueryView = Backbone.View.extend({
 
     var _this = this;
     var data = $('#searchForm').serializeArray();
+    var data2 = minMax(1, 25, data[2].value);
+    var data3 = minMax(1, 1000, data[3].value);
 
     // Build out the AJAX GET request url.
     var url = 'http://api.walmartlabs.com/v1/search?apiKey=w48yd89ju28reu976jxc3ewz&facet=on&responseGroup=full';
     url += '&query=' + data[0].value;
-    url += data[1].value ? '&facet.brand=' + data[1].value : '';
-    url += data[2].value ? '&numItems=' + data[2].value : '';
-    url += data[3].value ? '&start=' + data[3].value : '';
+    url += data[1].value ? '&facet=on&facet.filter=brand:' + data[1].value : '';
+    url += data2 ? '&numItems=' + data2 : '';
+    url += data3 ? '&start=' + data3 : '';
     url += data[4].value ? '&sort=' + data[4].value : '';
 
     this.searching = true;
-    $('.add-products').addClass('searching')
+    $('.add-products').addClass('searching');
 
     // AJAX request the Walmart search api.
     $.ajax({
@@ -68,8 +81,13 @@ App.Views.QueryView = Backbone.View.extend({
         }
 
         _this.searching = false;
-        App.processData(res.items);
+        if(res.totalResults > 0) {
+          App.processData(res.items);
+        } else {
+          $('.no-results').addClass('show');
+        }
         $('.add-products').removeClass('searching');
+        $('#searchForm input').val('');
       },
       error: function(err) {
         console.log('AJAX error:');
