@@ -15,11 +15,11 @@ App.Views.ModalView = Backbone.View.extend({
     var text = $(e.target).text();
 
     if(text === 'Overwrite') {
-
+      App.processData(App.modalData, 'overwrite');
     } else if(text === 'Skip') {
-
-    } else {
-      this.$el.removeClass('show');
+      App.processData(App.modalData, 'skip');
     }
+
+    this.$el.removeClass('show');
   }
 })
