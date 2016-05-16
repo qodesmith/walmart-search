@@ -257,6 +257,31 @@ body {
 .products-container .search-products .product-amount {
   text-align: center;
 }
+.products-container .search-container {
+  position: relative;
+}
+.products-container .search-container.searching input {
+  background: none;
+}
+.products-container .search-container.searching .clear-search {
+  display: block;
+}
+.products-container .clear-search {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  position: absolute;
+  display: none;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 17px;
+  font-size: 1.3em;
+  font-weight: bold;
+  font-style: normal;
+}
 .products-container header {
   display: -webkit-flex;
   display: -ms-flexbox;

@@ -8,19 +8,21 @@ App.killView = function(view) {
 // Should only run once on app startup.
 App.renderCollection = function() {
   var collection = App.collection;
-  if(!collection.models.length) return App.productAmount();
+  var len = collection.models.length;
+  if(!len) return App.productAmount();
 
+  // Use a document fragment to append the created views.
+  // Avoid unnecessary hits to the DOM / page reflows.
   var frag = document.createDocumentFragment();
   var individuals = $('.individual-products');
-  var len = collection.models.length;
   var i = 0;
 
   collection.each(function(model) {
     var product = new App.Views.ProductView({model: model});
-    frag.appendChild(product.el);
+    $(frag).prepend(product.el); // Most recent searches first.
   });
 
-  individuals.prepend(frag);
+  individuals.append(frag);
 
   var interval = setInterval(function() {
     if(i === len) clearInterval(interval);
@@ -81,35 +83,33 @@ App.showModal = function(data) {
 }
 
 // AJAX request data from the query form.
-// This function called from the query view.
 App.processData = function(data) {
-  var time = new Date().getTime();
   var frag = document.createDocumentFragment();
   var len = data.length;
   var individuals = $('.individual-products');
-  var i = j = 0;
   var elements = [];
-  var models = [];
+  var i = j = 0;
 
   for(i; i < data.length; i++) {
-    data[i].hidden = false;
-    data[i].searchTime = time;
-    var model = App.collection.create(data[i]);
+    data[i].hidden = false; // Used for filtering the list.
+
+    var model = App.collection.create(data[i]); // {at: 0} not working
     var product = new App.Views.ProductView({model: model});
+
     frag.appendChild(product.el);
     elements.push(product.el);
-    models.push(model);
   }
-
 
   // Add newly retrieved items to the beginning of the list.
   individuals.prepend(frag);
 
+  // Iterate through the list and reveal each one
+  // with a sliding- / fading-in motion.
   var interval = setInterval(function() {
     if(len === j) clearInterval(interval);
     $(elements[j]).addClass('show');
     j++;
-  }, 100);
+  }, 80);
 
   App.productAmount();
 }
@@ -120,6 +120,17 @@ App.productAmount = function() {
   var hidden = $('.product.hidden').length;
   var models = App.collection.models.length;
   $('.product-amount').text((shown - hidden) + ' of ' + models + ' products');
+}
+
+// Restores the list back to normal.
+App.clearSearch = function() {
+  console.log('App.clearSearch')
+  App.searchFiltering = false;
+  var input = $('.search-products input');
+
+  input.val('');
+  $('.search-container').removeClass('searching');
+  $('.product.hidden').removeClass('hidden');
 }
 
 // Collection created - local storage defined within.

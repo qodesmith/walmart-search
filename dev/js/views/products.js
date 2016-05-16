@@ -11,7 +11,8 @@ App.Views.ProductsView = Backbone.View.extend({
   events: {
     'click .col1.header': 'sortProducts',
     'keyup .search-products input': 'searchProducts',
-    'click .clear-products': 'clearProducts'
+    'click .clear-search': 'clearSearch',
+    'click .remove-all-products': 'removeAllProducts'
   },
   sortProducts: function(e) {
     var scrollTop = $('.individual-products')[0].scrollTop;
@@ -21,7 +22,14 @@ App.Views.ProductsView = Backbone.View.extend({
     $('.individual-products')[0].scrollTop = scrollTop;
   },
   searchProducts: function(e) {
+    if(!App.searchFiltering) {
+      $('.search-container').addClass('searching');
+    }
+
+    App.searchFiltering = true;
     var val = $(e.target).val().toLowerCase();
+
+    if(!val) App.clearSearch();
 
     App.collection.models.map(function(model) {
       if(!val) return model.set({hidden: false});
@@ -32,7 +40,10 @@ App.Views.ProductsView = Backbone.View.extend({
 
     App.productAmount();
   },
-  clearProducts: function() {
+  clearSearch: function() {
+    App.clearSearch();
+  },
+  removeAllProducts: function() {
     var models = App.collection.slice();
 
     models.map(function(model) {

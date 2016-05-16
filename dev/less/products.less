@@ -26,6 +26,32 @@
     }
   }
 
+  .search-container {
+    position: relative;
+
+    &.searching {
+      input {
+        background: none;
+      }
+
+      .clear-search {
+        display: block;
+      }
+    }
+  }
+
+  .clear-search {
+    .clickable;
+    position: absolute;
+    display: none;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 17px;
+    font-size: 1.3em;
+    font-weight: bold;
+    font-style: normal;
+  }
+
   header {
     .flex;
     flex-shrink: 0;

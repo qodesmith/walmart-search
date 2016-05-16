@@ -45,6 +45,9 @@ App.Views.QueryView = Backbone.View.extend({
     if(this.queryTransitioning) return; // Transitioning the red border off in progress.
     this.queryTransitioning = true;
 
+    // Restore the products list back to normal (un-filtered);
+    App.clearSearch();
+
     if($('#query').val() === '') {
       return noQuery();
     } else {
