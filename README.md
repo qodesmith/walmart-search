@@ -7,6 +7,8 @@ This [Backbone.js](http://backbonejs.org/) app utilizes the [Walmart search api]
 
 Download the zip file in the top right of this screen. Within that zip you'll find a `public` folder. Extract that and run the `index.html` file within. #EasyPeazy
 
+You can also run the app live [here](https://rawgit.com/qodesmith/walmart-search/master/public/index.html) thanks to the good folks at [RawGit](https://rawgit.com/)!
+
 
 ## USAGE
 
