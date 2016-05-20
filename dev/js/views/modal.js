@@ -23,4 +23,4 @@ App.Views.ModalView = Backbone.View.extend({
     this.$el.removeClass('show');
     App.modalData = '';
   }
-})
+});

@@ -14,7 +14,7 @@ App.Views.ProductsView = Backbone.View.extend({
     'click .clear-search': 'clearSearch',
     'click .remove-all-products': 'removeAllProducts'
   },
-  sortProducts: function(e) {
+  sortProducts: function() {
     var scrollTop = $('.individual-products')[0].scrollTop;
 
     $('header .toggle').toggleClass('up');
@@ -42,6 +42,7 @@ App.Views.ProductsView = Backbone.View.extend({
   },
   clearSearch: function() {
     App.clearSearch();
+    App.productAmount();
   },
   removeAllProducts: function() {
     var models = App.collection.slice();

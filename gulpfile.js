@@ -2,6 +2,8 @@
 // -----------------
 var gulp       = require('gulp');
 var concat     = require('gulp-concat-util'); // Makes concat.header, concat.footer available.
+var Afplay     = require('afplay');
+var player     = new Afplay();
 
 // JavaScript Utilities:
 // --------------------
@@ -9,6 +11,7 @@ var uglify     = require('gulp-uglify');
 var browserify = require('browserify');
 var source     = require('vinyl-source-stream');
 var buffer     = require('vinyl-buffer');
+var eslint     = require('gulp-eslint');
 
 // CSS Utilities:
 // -------------
@@ -19,8 +22,8 @@ var prefix     = require('gulp-autoprefixer');
 // Handlerbars Templating:
 // ----------------------
 var handlebars = require('gulp-handlebars');
-var wrap       = require('gulp-wrap');
 var declare    = require('gulp-declare');
+var wrap       = require('gulp-wrap');
 
 /************************************************/
 /************************************************/
@@ -33,6 +36,8 @@ gulp.task('handlebars', function() {
    * gulp-wrap:       ^0.11.0
    * handlebars:      ^4.0.5
    * gulp-handlebars: ^4.0.0
+   *
+   * solution: https://goo.gl/3D7oli
    */
   return gulp.src('dev/templates/**/*.hbs')
     .pipe(handlebars({
@@ -53,6 +58,8 @@ gulp.task('handlebars', function() {
 });
 
 
+
+
 // JAVASCRIPT
 gulp.task('scripts', function() {
   return gulp.src([
@@ -66,11 +73,24 @@ gulp.task('scripts', function() {
     .pipe(concat('all.min.js'))
     // Wrap the concatenated file in a SEAF.
     // Declaring the var's prevents dependencies.js from scoping them globally.
-    // .pipe(concat.header('(function(){var Backbone,$,jQuery,_,Handlebars,App;'))
-    .pipe(concat.header('(function(){')) // ALLOW GLOBAL VARIABLES
+    .pipe(concat.header('(function(){var Backbone,$,jQuery,_,Handlebars,App;'))
+    // .pipe(concat.header('(function(){')) // ALLOW GLOBAL VARIABLES
     .pipe(concat.footer('\n})();'))
     // .pipe(uglify()) // Use for production.
     .pipe(gulp.dest('public'));
+});
+
+gulp.task('lint', function() {
+  // https://github.com/adametry/gulp-eslint
+  return gulp.src('dev/js/**/!(dependencies|templates|vendors.min)*.js')
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.result(function(res) {
+      if(res.errorCount) {
+        player.play('/System/Library/Sounds/Funk.aiff');
+      }
+    }))
+    .pipe(eslint.failAfterError());
 });
 
 // BROWSERIFY - for front-end dependencies.
@@ -100,13 +120,13 @@ gulp.task('less', function() {
 // WATCH
 gulp.task('watch', function() {
   gulp.watch('dev/templates/**/*.hbs', ['handlebars']);
-  gulp.watch('dev/js/**/!(dependencies)*.js', ['scripts']);
+  gulp.watch('dev/js/**/!(dependencies)*.js', ['lint', 'scripts']);
   gulp.watch('dev/less/**/*.less', ['less']);
   gulp.watch('dev/js/dependencies.js', ['browserify']);
 });
 
 // DEFAULT
-gulp.task('default', ['handlebars', 'scripts', 'less', 'watch']);
+gulp.task('default', ['handlebars', 'scripts', 'lint', 'less', 'watch']);
 
 // http://goo.gl/SboRZI
 // Prevents gulp from crashing on errors.

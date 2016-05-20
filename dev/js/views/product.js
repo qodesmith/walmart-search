@@ -13,7 +13,7 @@ App.Views.ProductView = Backbone.View.extend({
   },
   events: {
     'blur .brand-name': 'brandName',
-    'click .close': 'close',
+    'click .close': 'close'
   },
   brandName: function(e) {
     var val = $(e.target).val();

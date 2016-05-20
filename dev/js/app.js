@@ -119,7 +119,8 @@ App.productAmount = function() {
   var shown = $('.product').length;
   var hidden = $('.product.hidden').length;
   var models = App.collection.models.length;
-  $('.product-amount').text((shown - hidden) + ' of ' + models + ' products');
+  var text = shown - hidden + ' of ' + models + ' products';
+  $('.product-amount').text(text);
 }
 
 // Restores the list back to normal.
